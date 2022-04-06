@@ -4,15 +4,20 @@ using UnityEngine;
 
 public class CheckpointManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public Checkpoint[] levelCheckpoints;
+    public Vector3 respawnPosition;
+
+    public void CheckLastCheckpoint()
     {
-        
+        foreach (Checkpoint checkpoint in levelCheckpoints)
+        {
+            if (checkpoint.playerHasReached)
+                respawnPosition = checkpoint.checkpointPosition;
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        CheckLastCheckpoint();
     }
 }
