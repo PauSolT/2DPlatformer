@@ -12,8 +12,6 @@ public class Dimensions : MonoBehaviour
     public TilemapCollider2D[] rgbColliders;
     public Tilemap[] rgbMaps;
 
-    Color notCurrentLayer = new Color(1, 1, 1, 1);
-    Color currentLayer = new Color(1, 1, 1, 0.25f);
     Color[] playerColors = new Color[] { Color.red, Color.green, Color.blue };
 
     bool canChange = true;
@@ -72,11 +70,12 @@ public class Dimensions : MonoBehaviour
         for (int i = 0; i < rgbColliders.Length; i++)
         {
             rgbColliders[i].isTrigger = false;
-            rgbMaps[i].color = notCurrentLayer;
+            rgbMaps[i].color = new Color(rgbMaps[i].color.r, rgbMaps[i].color.g, rgbMaps[i].color.b, 1);
         }
 
         rgbColliders[layer - minimumLayer].isTrigger = true;
-        rgbMaps[layer - minimumLayer].color = currentLayer;
+        Color currentLayerColor = rgbMaps[layer - minimumLayer].color;
+        rgbMaps[layer - minimumLayer].color = new Color(currentLayerColor.r, currentLayerColor.g, currentLayerColor.b, 0.25f);
         currentColor.color = playerColors[layer - minimumLayer];
         ChangeDimensionParticlesMain.startColor = playerColors[layer - minimumLayer];
         ChangeDimensionParticles.Play();
