@@ -143,7 +143,10 @@ public class PlayerMovement : MonoBehaviour
 
     public static void KillPlayer()
     {
-        Destroy(go);
+        go.SetActive(false);
+        go.transform.position = CheckpointManager.respawnPosition;
+        go.SetActive(true);
+        //Destroy(go);
     }
 
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class CheckpointManager : MonoBehaviour
 {
     public Checkpoint[] levelCheckpoints;
-    public Vector3 respawnPosition;
+    public static Vector3 respawnPosition;
 
     public void CheckLastCheckpoint()
     {
