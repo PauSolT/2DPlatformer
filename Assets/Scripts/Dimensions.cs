@@ -13,21 +13,19 @@ public class Dimensions : MonoBehaviour
     public Tilemap[] rgbMaps;
 
     Color[] playerColors = new Color[] { Color.red, Color.green, Color.blue };
+    public static Color currentColor;
 
     bool canChange = true;
 
-    SpriteRenderer currentColor;
+    SpriteRenderer currentColorSprite;
     public ParticleSystem ChangeDimensionParticles;
-    public ParticleSystem DeathParticles;
 
     public ParticleSystem.MainModule ChangeDimensionParticlesMain;
-    public ParticleSystem.MainModule DeathParticlesMain;
 
     void Start()
     {
-        currentColor = gameObject.GetComponent<SpriteRenderer>();
+        currentColorSprite = gameObject.GetComponent<SpriteRenderer>();
         ChangeDimensionParticlesMain = ChangeDimensionParticles.main;
-        DeathParticlesMain = DeathParticles.main;
         AssignDimension(layer);
     }
 
@@ -76,7 +74,8 @@ public class Dimensions : MonoBehaviour
         rgbColliders[layer - minimumLayer].isTrigger = true;
         Color currentLayerColor = rgbMaps[layer - minimumLayer].color;
         rgbMaps[layer - minimumLayer].color = new Color(currentLayerColor.r, currentLayerColor.g, currentLayerColor.b, 0.25f);
-        currentColor.color = playerColors[layer - minimumLayer];
+        currentColorSprite.color = playerColors[layer - minimumLayer];
+        currentColor = playerColors[layer - minimumLayer];
         ChangeDimensionParticlesMain.startColor = playerColors[layer - minimumLayer];
         ChangeDimensionParticles.Play();
     }
@@ -103,13 +102,5 @@ public class Dimensions : MonoBehaviour
         {
             canChange = true;
         }
-    }
-
-    private void OnDestroy()
-    {
-        
-        DeathParticlesMain.startColor = playerColors[layer - minimumLayer];
-        Instantiate(DeathParticles, gameObject.transform);
-        Debug.Log("DESTROYED");
     }
 }

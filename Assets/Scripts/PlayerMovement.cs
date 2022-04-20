@@ -10,25 +10,23 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Speed")]
     public float currentSpeed;
-    float maxSpeed = 15f;
     float normalSpeed = 10f;
 
     [Header("Jump")]
     float buttonTime = 0.5f;
     float jumpHeight;
-    float maxJumpHeight= 8f;
     float normalJumpHeight = 5f;
     float cancelRate = 100f;
-
-
     float jumpTime;
     float jumpForce;
+
     bool jumping;
     bool jumpCancelled;
     bool grounded = true;
 
     public static GameObject go;
 
+    public ParticleManager particleManager;
 
     void Start()
     {
@@ -58,7 +56,6 @@ public class PlayerMovement : MonoBehaviour
 
     void Jump()
     {
-
         if (Input.GetKeyDown(KeyCode.Space))
         {
             CheckGroundStatus();
@@ -95,38 +92,6 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Not used
-    /// </summary>
-    public void RedMovement()
-    {
-        if (Dimensions.layer == 8)
-        {
-            currentSpeed = maxSpeed;
-            jumpHeight = maxJumpHeight;
-        }
-        else
-        {
-            currentSpeed = normalSpeed;
-            jumpHeight = normalJumpHeight;
-        }
-    }
-
-    /// <summary>
-    /// Not used
-    /// </summary>
-    public void BlueGravity()
-    {
-        if (Dimensions.layer == 10)
-        {
-            rb.gravityScale = 1.5f;
-        }
-        else
-        {
-            rb.gravityScale = 6.0f;
-        }
-    }
-
     void CheckGroundStatus()
     {
         Vector2 origin = new Vector2(collider2D.bounds.center.x, collider2D.bounds.center.y - (collider2D.bounds.extents.y + 0.1f));
@@ -141,12 +106,13 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
-    public static void KillPlayer()
+    public void KillPlayer()
     {
         go.SetActive(false);
         go.transform.position = CheckpointManager.respawnPosition;
+        if (particleManager != null)
+            particleManager.ShowDeathParticles();
         go.SetActive(true);
-        //Destroy(go);
     }
 
 }
