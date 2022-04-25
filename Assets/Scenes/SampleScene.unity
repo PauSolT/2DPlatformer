@@ -3025,6 +3025,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentSpeed: 10
   particleManager: {fileID: 449888823}
+  checkpointManager: {fileID: 1582690999}
 --- !u!114 &819167218
 MonoBehaviour:
   m_ObjectHideFlags: 0

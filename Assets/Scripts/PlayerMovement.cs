@@ -27,6 +27,7 @@ public class PlayerMovement : MonoBehaviour
     public static GameObject go;
 
     public ParticleManager particleManager;
+    public CheckpointManager checkpointManager;
 
     void Start()
     {
@@ -109,10 +110,11 @@ public class PlayerMovement : MonoBehaviour
     public void KillPlayer()
     {
         go.SetActive(false);
-        go.transform.position = CheckpointManager.respawnPosition;
         if (particleManager != null)
             particleManager.ShowDeathParticles();
-        go.SetActive(true);
+
+        if (checkpointManager != null)
+            checkpointManager.RespawnPlayer();
     }
 
 }
