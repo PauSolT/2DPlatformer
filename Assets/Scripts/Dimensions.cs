@@ -11,6 +11,7 @@ public class Dimensions : MonoBehaviour
 
     public TilemapCollider2D[] rgbColliders;
     public Tilemap[] rgbMaps;
+    public Tilemap[] rgbSpikes;
 
     Color[] playerColors = new Color[] { Color.red, Color.green, Color.blue };
     public static Color currentColor;
@@ -69,11 +70,13 @@ public class Dimensions : MonoBehaviour
         {
             rgbColliders[i].isTrigger = false;
             rgbMaps[i].color = new Color(rgbMaps[i].color.r, rgbMaps[i].color.g, rgbMaps[i].color.b, 1);
+            rgbSpikes[i].color = new Color(rgbMaps[i].color.r, rgbMaps[i].color.g, rgbMaps[i].color.b, 1);
         }
 
         rgbColliders[layer - minimumLayer].isTrigger = true;
         Color currentLayerColor = rgbMaps[layer - minimumLayer].color;
         rgbMaps[layer - minimumLayer].color = new Color(currentLayerColor.r, currentLayerColor.g, currentLayerColor.b, 0.25f);
+        rgbSpikes[layer - minimumLayer].color = new Color(currentLayerColor.r, currentLayerColor.g, currentLayerColor.b, 0.25f);
         currentColorSprite.color = playerColors[layer - minimumLayer];
         currentColor = playerColors[layer - minimumLayer];
         ChangeDimensionParticlesMain.startColor = playerColors[layer - minimumLayer];
