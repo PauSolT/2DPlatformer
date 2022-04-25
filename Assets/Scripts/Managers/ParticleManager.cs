@@ -6,16 +6,12 @@ public class ParticleManager : MonoBehaviour
 {
     [SerializeField]
     ParticleSystem deathParticles;
-    GameObject player;
 
     // Start is called before the first frame update
-    void Start()
-    {
-        player = GameObject.FindWithTag("Player");
-    }
-
+  
     public void ShowDeathParticles()
     {
+        GameObject player = UpdateScript.player;
         ParticleSystem.MainModule deathParticlesMain = deathParticles.main;
         deathParticlesMain.startColor = Dimensions.currentColor;
 

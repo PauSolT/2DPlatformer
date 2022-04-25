@@ -8,12 +8,7 @@ public class CheckpointManager : MonoBehaviour
     public static Vector3 respawnPosition;
 
     float secondsToRespawn = 1.5f;
-    GameObject player;
 
-    private void Start()
-    {
-        player = GameObject.FindGameObjectWithTag("Player");
-    }
     public void CheckLastCheckpoint()
     {
         foreach (Checkpoint checkpoint in levelCheckpoints)
@@ -31,14 +26,12 @@ public class CheckpointManager : MonoBehaviour
 
     IEnumerator WaitToRespawnCoroutine()
     {
+        GameObject player = UpdateScript.player;
+        CheckLastCheckpoint();
+
         yield return new WaitForSeconds(secondsToRespawn);
         player.transform.position = respawnPosition;
         player.SetActive(true);
     }
 
-
-    private void Update()
-    {
-        CheckLastCheckpoint();
-    }
 }

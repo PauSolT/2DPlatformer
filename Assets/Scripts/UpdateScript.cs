@@ -6,12 +6,17 @@ public class UpdateScript : MonoBehaviour
 {
     Dimensions dimensions;
     PlayerMovement playerMovement;
+    TimeManager timeManager;
+
+    public static GameObject player;
 
     // Start is called before the first frame update
     void Start()
     {
-        playerMovement = GetComponent<PlayerMovement>();
-        dimensions = GetComponent<Dimensions>();
+        playerMovement = FindObjectOfType<PlayerMovement>();
+        dimensions = FindObjectOfType<Dimensions>();
+        timeManager = FindObjectOfType<TimeManager>();
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     // Update is called once per frame
@@ -19,6 +24,7 @@ public class UpdateScript : MonoBehaviour
     {
         playerMovement.Updating();
         dimensions.Updating();
+        timeManager.UpdateTimer();
     }
 
     void FixedUpdate()
@@ -26,9 +32,4 @@ public class UpdateScript : MonoBehaviour
         playerMovement.FixedUpdating();
     }
 
-    private void OnDrawGizmos()
-    {
-        Debug.DrawRay(transform.position, Vector2.down * 0.55f, Color.black);
-
-    }
 }
