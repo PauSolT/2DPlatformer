@@ -94,15 +94,11 @@ public class Dimensions : MonoBehaviour
     {
         gameObject.layer = numLayer;
         layer = numLayer;
-        Debug.Log("Layer" + layer);
-        Debug.Log("Gravity before" + Physics2D.gravity);
 
         if (layer == minBwLayer)
             Physics2D.gravity = new Vector2(0, 9.8f);
         else
             Physics2D.gravity = new Vector2(0, -9.8f);
-
-        Debug.Log("Gravity after" + Physics2D.gravity);
 
 
         for (int i = 0; i < colliders.Length; i++)
