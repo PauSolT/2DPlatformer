@@ -98,7 +98,8 @@ public class PlayerMovement : MonoBehaviour
         Vector2 origin = new Vector2(collider2D.bounds.center.x, collider2D.bounds.center.y - (collider2D.bounds.extents.y + 0.1f));
         RaycastHit2D hitGround = Physics2D.Raycast(origin, Vector2.down, 0.01f );
 
-        if (hitGround.collider != null)
+        if (hitGround.collider != null && 
+            !Dimensions.canChangeWorld)
             grounded = true;
         else
             grounded = false;

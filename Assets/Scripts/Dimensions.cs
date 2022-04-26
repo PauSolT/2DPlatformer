@@ -10,10 +10,10 @@ public class Dimensions : MonoBehaviour
     int minimumLayer;
     [SerializeField]
     int maximumLayer;
-    int minRgbLayer = 8;
-    int maxRgbLayer = 10;
-    int minBwLayer = 11;
-    int maxBwLayer = 12;
+    const int minRgbLayer = 8;
+    const int maxRgbLayer = 10;
+    const int minBwLayer = 11;
+    const int maxBwLayer = 12;
 
     public TilemapCollider2D[] colliders;
     public Tilemap[] maps;
@@ -25,9 +25,9 @@ public class Dimensions : MonoBehaviour
     Color[] playerColors = new Color[] { Color.red, Color.green, Color.blue, Color.black, Color.white };
     public static Color currentColor;
 
-    bool canChange = true;
-    bool isRgb = true;
-    bool canChangeWorld = true;
+    static public bool canChange = true;
+    static public bool isRgb = true;
+    static public bool canChangeWorld = false;
 
     SpriteRenderer currentColorSprite;
     public ParticleSystem ChangeDimensionParticles;
@@ -47,13 +47,14 @@ public class Dimensions : MonoBehaviour
     public void Updating()
     {
         ChangeColor();
+        ChangeWorld();
     }
+    
 
     void ChangeColor()
     {
         LessDimension(minimumLayer, maximumLayer);
         MoreDimension(minimumLayer, maximumLayer);
-        ChangeWorld();
     }
 
     void LessDimension(int minimum, int maximum)
@@ -77,10 +78,16 @@ public class Dimensions : MonoBehaviour
         }
     }
 
-    void ChangeWorld ()
+    public bool ChangeWorld()
     {
-        if (Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.Space) && canChangeWorld)
+        {
             ChangeWorlds();
+            return true;
+        } else
+        {
+            return false;
+        }
     }
 
     void AssignDimension (int numLayer)
@@ -146,23 +153,20 @@ public class Dimensions : MonoBehaviour
 
     void ChangeWorlds()
     {
-        if (canChangeWorld)
+        if (isRgb)
         {
-            if (isRgb)
-            {
-                isRgb = false;
-                minimumLayer = minBwLayer;
-                maximumLayer = maxBwLayer;
-            } else
-            {
-                isRgb = true;
-                minimumLayer = minRgbLayer;
-                maximumLayer = maxRgbLayer;
-            }
-            rgb.SetActive(isRgb);
-            bw.SetActive(!isRgb);
-            AssignDimension(minimumLayer);
+            isRgb = false;
+            minimumLayer = minBwLayer;
+            maximumLayer = maxBwLayer;
+        } else
+        {
+            isRgb = true;
+            minimumLayer = minRgbLayer;
+            maximumLayer = maxRgbLayer;
         }
+        rgb.SetActive(isRgb);
+        bw.SetActive(!isRgb);
+        AssignDimension(minimumLayer);
     }
 
 }
