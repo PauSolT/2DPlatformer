@@ -99,7 +99,8 @@ public class PlayerMovement : MonoBehaviour
         RaycastHit2D hitGround = Physics2D.Raycast(origin, Vector2.down, 0.01f );
 
         if (hitGround.collider != null && 
-            !Dimensions.canChangeWorld)
+            !Dimensions.canChangeWorld && 
+            Dimensions.isRgb)
             grounded = true;
         else
             grounded = false;
