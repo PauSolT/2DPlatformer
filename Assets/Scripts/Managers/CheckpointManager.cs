@@ -9,6 +9,10 @@ public class CheckpointManager : MonoBehaviour
 
     float secondsToRespawn = 1.5f;
 
+    private void Start()
+    {
+        levelCheckpoints = GetComponentsInChildren<Checkpoint>();
+    }
     public void CheckLastCheckpoint()
     {
         foreach (Checkpoint checkpoint in levelCheckpoints)

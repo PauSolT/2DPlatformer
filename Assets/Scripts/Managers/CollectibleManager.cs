@@ -6,8 +6,13 @@ public class CollectibleManager : MonoBehaviour
 {
     int collectiblesObtained = 0;
     public int maxCollectibles = 0;
-    //public Collectible[] levelCollectibles;
     public List<Collectible> levelCollectibles;
+
+    private void Start()
+    {
+        levelCollectibles.AddRange(GetComponentsInChildren<Collectible>());
+        maxCollectibles = levelCollectibles.Capacity;
+    }
 
     public void CheckCollectibles()
     {
@@ -23,10 +28,7 @@ public class CollectibleManager : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        maxCollectibles = levelCollectibles.Capacity;
-    }
+   
 
     private void Update()
     {
