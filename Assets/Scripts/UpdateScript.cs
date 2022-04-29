@@ -22,14 +22,20 @@ public class UpdateScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        playerMovement.Updating();
-        dimensions.Updating();
+        if (!TimeManager.isPaused)
+        {
+            playerMovement.Updating();
+            dimensions.Updating();
+        }
         timeManager.UpdateTimer();
     }
 
     void FixedUpdate()
     {
-        playerMovement.FixedUpdating();
+        if (!TimeManager.isPaused)
+        {
+            playerMovement.FixedUpdating();
+        }
     }
 
 }
